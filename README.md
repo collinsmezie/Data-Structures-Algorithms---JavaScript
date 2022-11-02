@@ -4,10 +4,10 @@ This repository is dedicated to solving DSA problems sourced from various platfo
 
 Every file contained in this repository contains a solution to a specific problem with sections such as:
 
-Problem details 
-Problem statement
-Problem's pseudocode
-Problem's code Implementation
+- Problem details 
+- Problem statement
+- Problem's pseudocode
+- Problem's code Implementation
 
 
 
