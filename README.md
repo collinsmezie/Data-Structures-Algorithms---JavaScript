@@ -1,12 +1,12 @@
 # Data-Structures-Algorithms---JavaScript
 
-This repository is dedicated to solving DSA problems sourced from various platforms like Hackerrank, codechef, leetcode etc.
+This repository is dedicated to solving DSA problems sourced from various platforms like Hackerrank, codechef, and leetcode in javaScript.
 
-Every file contained in this repository contains a solution to a specific problem with sections such as:
+Each file contained in this repository contains a working solution to a specific problem with sections such as:
 
 - Problem details 
 - Problem pseudocode
-- Problem code Implementation
+- Problem code Implementation in javaScript
 
 
 
