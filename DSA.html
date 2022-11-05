@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Test file</title>    
+  <meta charset = "UTF-8">
+  <link href = "style.css" rel = "stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+ </head>
+ <body>
+  <div class = "setBox">
+    <!-- https://www.youtube.com/watch?v=pa3Aept6BW8 -->
+    <!-- DSA learning platform: coding NINJA -->
+  </div>      
+  <!--1. React, 2. Redux, 3. How to install and run those, 4. Flex 5. CSS Grid 6. Bootstrap -->
+  <!--https://gather.town/app/5YTZzR1wCZipDJuk/Practice%20Sessions -->
+
+ <script>
+   
+  //https://www.codecademy.com/learn/learn-ruby
+  //https://microverse.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fmicroverse.zendesk.com%2Fhc%2Fen-us%2Farticles%2F360026625973-How-can-I-get-help-from-TSEs
+  
+
+  function diagonalDifference(arr) {
+    /**
+     * [
+     * [11, 2, 4]
+     * [4, 5, 6]
+     * [9, 8, 9]
+     * ]
+     * 
+     */
+    let left = 0;
+    let right = 0;
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i; j < arr.length; j++) {
+            left += arr[i][j];
+            console.log(left)
+            break;
+        }
+        
+        for (let j = arr.length; j < arr.length; j--) {
+            // right += arr[i][j];
+            console.log(j)
+            break;
+        }
+    }
+}
+
+function toBinary(n) {
+  let arr = [];
+  for(let i = n; i >= 1; i /= 2 ){
+    arr.push(Math.floor(i%2));
+  }
+  let binaryString =  arr.reverse().join('')
+  return binaryString.match(/(1)\1+/g)
+} 
+
+/** * @param {number[]} nums * @param {number} target * @return {number} */ 
+const middle = (left, right) => left + Math.floor((right - left) / 2); 
+
+var searchInsert = function(nums, target) { 
+  if(nums[0] > target) return 0 
+  if(nums[nums.length - 1] < target) return nums.length 
+  let leftIndex = 0, rightIndex = nums.length - 1; 
+  while(!(nums[leftIndex] <= target && nums[rightIndex] >= target)) { 
+    let mid = middle(leftIndex, rightIndex) 
+    if(nums[mid] === target) return mid; 
+    if(nums[mid] > target) { rightIndex = mid; 
+    } else { leftIndex = mid; } 
+    console.log(leftIndex + " " + rightIndex); 
+  } 
+  return rightIndex; 
+};
+
+
+function utopianTree(n) {
+  let height = 1;
+
+  for(let period = 0; period <= n; period++){
+    if(period == 0) height = 1;
+
+    else if(period % 2 == 0) height += 1;
+    
+    else height *= 2;
+  }
+  return height;
+}
+
+
+function updateRecords(records, id, prop, value) {
+  
+  if(prop !== "tracks" && value !== ""){
+    records[id][prop] = value;
+  }else if(prop == "tracks" && !records[id].hasOwnProperty("tracks")){
+    records[id]["tracks"] = [value];
+  }else if(records[id].hasOwnProperty("tracks") && value !== ""){
+    records[id]["tracks"].push(value)
+  }
+  if(value == ""){
+    delete records[id][prop]
+  }
+
+ return records;
+}
+
+
+function findDigits(n){
+  let number = n
+  let result = 0
+  let str = n.toString()
+  let array = str.split("")
+  for(let i = 0; i < array.length; i++){
+    let num = +array[i];
+    if(number % num == 0){
+      result += 1
+    }
+  }
+  return result
+}
+
+
+function titleCase(str) {
+  return str.toLowerCase().replace(/(^|\s)\S/g, (e) => e.toUpperCase());
+}
+
+function titleCase(str) {
+  str = str.toLowerCase().split(" ");
+
+  for(let i =0; i < str.length;i++){
+ 
+    str[i] = str[i][0].toUpperCase() + str[i].slice(1);
+  } 
+       return str.join(' ');
+}
+
+
+function gridSearch(G,P) {
+  const arr = [];
+  const array = [];
+  let j = 0
+  let position;
+  const check = str => {
+    for(let i = 0; i < str.length; i++){
+      if(str[i] == str[0])continue
+      else return false
+    }
+     return true;
+  }
+  for(let i = 0; i < P.length; i++){
+
+    while(j < G.length){
+      console.log(G[j],P[i],j)
+      let match = G[j].search(P[i])
+      if(match == -1){j++
+      //console.log(G[j],P[i],j)
+      }else{
+       arr.push(match);
+       position = match;
+       break;
+     }
+    }
+    break
+  }
+  j+=1;
+
+  for(let i = 1; i < P.length; i++){
+
+    while(j < G.length){
+    
+      if(check(P[i]+G[j])){
+        arr.push(position)
+        j++;
+        break;
+      }
+
+      let matches = G[j].search(P[i])
+      if(matches == -1){
+        j++
+        return "NO"
+  
+      }else{
+        arr.push(matches);
+        j++;
+        break
+      }
+  }
+}  
+  return (check(arr)) ? "YES" : "NO";
+}
+/*
+console.log(gridSearch([
+  '7283455864', '6731158619',
+  '8988242643', '3830589324',
+  '2229505813', '5633845374',
+  '6473530293', '7053106601',
+  '0834282956', '4607924137'
+],
+[ '9505', '3845', '3530' ]))
+//*/
+/*
+console.log(gridSearch(["400453592126560",
+"114213133098692",
+"474386082879648",
+"522356951189169",
+"887109450487496",
+"252802633388782",
+"502771484966748",
+"075975207693780",
+"511799789562806",
+"404007454272504",
+"549043809916080",
+"962410809534811",
+"445893523733475",
+"768705303214174",
+"650629270887160"],["99","99"]))
+//*/
+
+function caesarCipher(s, k) {
+  const alphabets = "abcdefghijklmnopqrstuvwxyz".split("");
+  const arr = [];
+  const regex = /[^A-Za-z0-9]/g;
+  const numberRegex = /[0-9]/g;
+  for(let i = 0; i < k; i++){
+    alphabets.push(alphabets[i])
+  }
+  const array = s.split("");
+  for(let i = 0; i < array.length; i++){
+   let char = array[i]
+   if(char.match(regex)){
+      arr.push(char);
+
+  }else if(char.match(numberRegex)){
+      arr.push(char);
+
+  }else if(char == char.toUpperCase()){
+     char = char.toLowerCase();
+     arr.push(alphabets[alphabets.indexOf(char)+k].toUpperCase());
+
+  }else{
+      arr.push(alphabets[alphabets.indexOf(char)+k]);
+    }
+  }
+  return arr.join("")
+}
+console.log(caesarCipher("There's-a-starman-waiting-in-the-sky", 3 ))
+
+ let arr = [1, 1, 1, 1, 1,  4, 4, 4, 4, 4, 6, 7, 2, 2, 2, 2, 2, 9, 9, 9, 9, 9];
+ let hash = {};
+ for(let i = 0; i < arr.length; i++){
+   let key = arr[i];
+   hash[key] = 0;
+ }
+ for(let i = 0; i < arr.length; i++){
+   let key = arr[i];
+   hash[key] += 1;
+ };
+let mode = 0;
+let value = 0;
+let arMode = [];
+ for(let e in hash){
+   if(hash[e] > mode){
+     mode = e;
+     value = hash[e];
+   }
+ }
+ for(let a in hash){
+   if(hash[a] == value){
+     arMode.push(a);
+   }
+ }
+//console.log(arMode);
+  
+  
+  function main() {
+    var t = parseInt(readLine()); 
+    for (var a0 = 0; a0 < t; a0++){ 
+      var n = BigInt(parseInt(readLine())); 
+      let result = BigInt(0); 
+      n = n-1n; 
+      let a = n/3n; 
+      let b = n/5n; 
+      let c = n/15n; 
+      result += (( a*(a + 1n) )/2n)*3n; 
+      result += (( b*(b + 1n) )/2n)*5n - (( c*(c + 1n) ) /2n)*15n; 
+      console.log(result.toString())
+       } 
+  }
+  
+  function staircase(n) { 
+    let str=""; 
+    for (let i=1;i<n+1;i++){ 
+      str+=" ".repeat(n-i)+"#".repeat(i)+"\n"; 
+    } 
+    console.log(str); 
+  }
+  
+  function chocolateFeast(cash,price,pack){
+    let eaten = Math.floor(cash / price);
+    let packets = eaten;
+    let leftOver = 0;
+    let i = packets;
+    while(i >= pack){
+      if(packets < pack){
+        return eaten;
+      }
+      for(let packs = 0; packs <= packets;packs++){
+         console.log("packets",packets);
+         if(packets >= pack){
+           packets-= pack;
+           eaten++;
+           leftOver++;
+         }
+      }
+      packets += leftOver; 
+      leftOver = 0;
+      i--;
+   }
+  return eaten;
+ }
+//console.log(chocolateFeast(7,3,2));
+
+function workbook(n, k, arr){
+  let array = [];
+  const array2 = [0];
+  let special = 0;
+  for(let i = 0; i < n; i++){
+    for(let j = 1; j <= arr[i]; j++){
+       array.push(j)
+    }   
+    for(let l = 0; l < arr[i]; l+=k){
+      array2.push(array.slice(l,l+k))
+    }
+    array = [];
+  }
+  for(let num = 1; num < array2.length; num++){
+    if(array2[num].includes(num)){
+      special++;
+    }
+  }
+    return special;
+}
+//console.log(workbook(5,3,[4,2,6,1,10]));
+
+function squares(a, b) {
+  let counter = 0;
+  let lower = Math.sqrt(a);
+  let upper = Math.sqrt(b);
+  
+  if(!Number.isInteger(lower)){
+    lower  = Math.floor(lower)+1;
+  }
+
+  if(Number.isInteger(upper)){
+    upper = Math.floor(upper)
+  }
+  for(let i = lower; i <= upper; i++){
+    counter++  
+  }
+  return counter
+}
+//console.log(squares(24,49))
+ 
+ function squares(a,b){  
+  let counter = 0;
+  for(let i = a; i <= b; i++){
+      let root = Math.sqrt(i)
+     if(i / root == Math.floor(root)){
+      counter++
+    }
+  }
+  return counter
+}
+
+function squares(a, b) {
+  let counter = 0;
+  for(let i = a; i <= b; i++){
+    if(Number.isInteger(Math.sqrt(i))){
+    counter++
+    }
+  }
+  return counter
+}
+
+
+  function seek(arr,...nums){
+   return arr.filter(item => !nums.includes(item))
+  }
+
+  function getSecondLargest(num){
+   let array = [];
+   num.sort((b,a) => a-b)
+   for(let i = 0; i < num.length; i++){
+     if(!array.includes(num[i])){
+       array.push(num[i])
+     }
+   }
+  console.log(num)
+  return array[1]
+ }
+
+function serviceLane(n, cases) {
+  let arr = [];
+  let array = [];
+  for(let h = 0; h < cases.length; h++){
+     let min = Math.min.apply(null,cases[h]);
+     let max = Math.max.apply(null,cases[h]);
+          
+    for(let i = min; i <= max; i++){
+        arr.push(n[i]);
+    }
+    array.push(Math.min(...arr))
+    arr = [];
+  }  
+  return array;
+}
+//console.log(serviceLane([2, 3, 1, 2, 3, 2, 3, 3],[[0, 3], [4, 6], [6, 7], [3, 5], [0, 7]]))
+
+function orbitalPeriod(arr) { 
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  return arr.map(({name, avgAlt}) => { 
+  const high = earthRadius + avgAlt; 
+  const time = Math.round(2*Math.PI*Math.sqrt(high**3/GM)); 
+  return({name, orbitalPeriod: time })
+  }); 
+} 
+
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  for(let i = 0; i < arr.length; i++){
+    let altitude = arr[i]["avgAlt"];
+    let r = earthRadius + altitude;
+    let period = Math.round(2 * Math.PI * Math.sqrt(Math.pow(r,3)/GM));
+    delete arr[i]["avgAlt"];
+    arr[i]["orbitalPeriod"] = period;
+  }
+  return arr;
+}
+//console.log(orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]));
+
+  function viralAdvertising(n){
+  let shared = 5;
+  let liked = Math.floor(shared/2)
+  let cumulative = 2
+
+  for(let day = 1; day < n; day++){
+    shared = liked * 3;
+    liked = Math.floor(shared/2);
+    cumulative = liked + cumulative;
+  }
+  return cumulative;
+}
+
+   function missingNumbers(arr,brr){
+  for(let i = 0; i < arr.length; i++){
+    for(let j = 0; j < brr.length; j++){
+      if(arr[i] == brr[j]){
+        brr.splice(j,1);
+        break
+    }
+  }
+}
+  return brr.filter((a, b) => brr.indexOf(a) === b).sort((a,b) => a - b);
+}
+//console.log(missingNumbers([7,2,5,3,5,3],[7,2,5,4,6,3,5,7,3]))
+
+function missingNumbers(arr,brr){
+  const object = {}, object2 = {};
+  for(let i = 0; i < arr.length; i++){
+    object[arr[i]] = 0;
+   }
+  for(let i = 0; i < brr.length; i++){
+    object2[brr[i]] = 0;
+  }  
+  for(let i = 0; i < arr.length; i++){
+    object[arr[i]]++;
+  }
+  for(let i = 0; i < brr.length; i++){
+    object2[brr[i]]++;
+  }
+  const array = [];
+  let arrObj = Object.values(object)
+  let arrObj2 = Object.values(object2)
+   for(let i = 0; i < arrObj2.length; i++){
+     let sum = arrObj[i] + arrObj2[i]
+     if(sum % 2 == 0){
+      //console.log(true)
+      //console.log(arrObj[i])
+      //console.log(arrObj2[i])
+      array.push(brr[i])
+  
+ 
+     }else{// console.log(false);
+        //console.log(arrObj[i])
+      //   console.log(arrObj2[i]
+     }
+   }
+      return array
+}
+//console.log(missingNumbers([203,204,205,206,207,208,203,204,205,206],
+//[203,204,204,205,206,207,205,208,203,206,205,206,204]))
+
+
+
+function balancedSums(arr){
+   let sum = arr.reduce((a,b) => a + b)
+   let first = 0 ;
+   for(let i = 0; i < arr.length; i++){
+      first += arr[i];
+      if(first === sum){
+        return "YES"; 
+      }
+      sum -= arr[i];
+}  
+   return "NO" 
+}
+
+   
+function balancedSums(arr){
+   let sum = arr.reduce((a,b) => a + b)/2;
+   let first = arr[0];
+   let breakPoint;
+   for(let i = 1; i < arr.length; i++){
+      first += arr[i];
+      if(first > sum){
+        breakPoint = arr.indexOf(arr[i])
+        break;
+      }
+   }
+   let endPoint = 0;
+   for(let i = breakPoint; i < arr.length; i++){
+      endPoint += arr[i]
+   }
+  return (first == endPoint) ? "YES" : "NO";
+}
+console.log(balancedSums([2,0,0,0]))
+
+function balancedSums(arr) { 
+  let arraySum = arr.reduce((a, b) => a+b); 
+  let sumLeftArray = 0; 
+  for(let i = 0; i < arr.length; i++){ 
+    arraySum -= arr[i]; 
+    if(arraySum === sumLeftArray){ 
+      return 'YES' 
+    }; 
+      sumLeftArray += arr[i]; 
+  }; 
+      return 'NO'; 
+};
+
+
+
+function diffArray(arr1, arr2) {
+  const newArr = [];
+  for(let i = 0; i < arr2.length; i++){
+
+    if(!arr1.includes(arr2[i])){
+      newArr.push(arr2[i])
+    }
+  }
+  for(let i = 0; i < arr1.length; i++){
+    if(!arr2.includes(arr1[i])){
+      newArr.push(arr1[i])
+    }
+  }
+  return newArr;
+}
+//console.log(diffArray([1, 2,7,9, 3, 5], [0,1, 2, 3, 4, 5]));
+
+function hurdleRace(k, height){
+  let maxHurdle = Math.max.apply(null,height);
+  if(k >= maxHurdle){
+    return 0;
+  }else{
+    return maxHurdle - k;
+  }
+}
+//console.log(hurdleRace(2,[1, 6, 3, 5 ,2]))
+
+
+function catAndMouse(x,y,z){
+  const diff = [];
+  let difference;
+  const arr = [x,y];
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i] < z){
+      difference = z - arr[i];
+      diff.push(difference)
+   
+   }else if(arr[i] > z){
+      difference = arr[i] - z;
+      diff.push(difference)
+    }
+  }
+  console.log(diff)
+return (diff[0] < diff[1]) ? "Cat A" : (diff[0] > diff[1]) ? "Cat B" : "Mouse C";
+}
+//console.log(catAndMouse(18,19,82))
+
+
+
+function bonAppetit(bill, k , b){
+  let sum = bill.reduce((a,b) => a + b)
+  if(sum / 2 == b) console.log((bill[k] / 2));
+  else console.log("Bon Appetit");
+}
+//console.log(bonAppetit([3, 10, 2, 9], 1, 12))
+
+
+function breakingRecords(scores){
+  const removeDuplicates = (array) => array.filter((a, b) => array.indexOf(a) === b) 
+  const worstRecord = [];
+  const bestRecord = [];
+  let highScore = scores[0];
+  let lowScore = scores[0];
+  for(let i = 1; i < scores.length; i++){
+    if(scores[i] < lowScore){
+       worstRecord.push(scores[i])
+       lowScore = scores[i];
+    }else if(scores[i] > highScore){
+       bestRecord.push(scores[i])
+       highScore = scores[i];
+    }
+  }
+  return [removeDuplicates(bestRecord).length,
+  removeDuplicates(worstRecord).length
+  ]
+}
+//console.log(breakingRecords([3,4,21,36,10,28,35,5, 24,42]))
+
+function birthdayCakeCandles(candles){
+  const countOccurrences = (val, arr) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+  let max = Math.max.apply(null,candles);
+return countOccurrences(max,candles)
+}
+//console.log(birthdayCakeCandles([56,56,2,34,2,56,7,8,4]))
+
+
+function staircase(totalStep){
+  let result = "";
+  for(let step = 1; step <= totalStep; step++){
+     for(let space = totalStep - 1; space >= step; space--){
+        result += " ";
+     }
+     for(let hash = 1; hash <= step; hash++){
+        result += "#";
+     }
+   result += "\n"; 
+  }
+  console.log(result)
+}
+//console.log(staircase(6))   
+
+function aVeryBigSum(...ar){
+  const total = ar.reduce((item1,item2) => item1 + item2,0)
+  return total;
+ }
+ //console.log(aVeryBigSum(1000000001, 1000000002, 1000000003, 1000000004, 1000000005));
+
+ const countOccurrences = (val, arr) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+ const array = [2,4,2,4,5,7,5,76,4,3,5,76,5,7,4,3,6,4];
+ //console.log(countOccurrences(4,array))
+
+function convertHTML(str) {
+  let arr = str.split("");
+  let result = "";
+  let entities = /[&<>"']/g;
+  let replaceHtml = function(string){
+    switch(string){
+      case "&" :
+        return string.replace("&", "&amp;");
+      case "<" :
+        return string.replace("<", "&lt;");
+      case ">" :
+        return string.replace(">", "&gt;");
+      case '"' :
+        return string.replace('"', "&quot;");
+      case "'" :
+        return string.replace("'", "&apos;");
+    } 
+  }
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i].match(entities)){
+       result += replaceHtml(arr[i])
+    }else{
+      result += arr[i];
+    }
+  }
+  return result;
+}
+//console.log(convertHTML("Hamburgers < 'Pizza < Tacos"));
+
+
+function pairElement(str) {
+  const arr = [];
+  let search = function(char){
+    switch(char){
+      case "A" : 
+       arr.push(["A","T"]);
+       break;
+      case "T" :
+       arr.push(["T","A"]);
+       break;
+      case "C" :
+       arr.push(["C","G"]);
+       break;
+      case "G" :
+       arr.push(["G","C"]);
+       break;    
+    }
+  }
+  for(let i = 0; i < str.length; i++){
+    search(str[i])
+  }
+ return arr 
+}    
+
+//console.log(pairElement("ATCGA"));
+  
+function countingValleys(steps,path){
+  let arr = Array.from(path);
+  let valleys = "";
+  let D = "D";
+  let number = 0;
+  let up = 1;
+  let down = 1;
+  let seaLevel = 0;
+
+  for(let i = 0; i < arr.length; i++){
+
+    if(arr[i] !== D){
+       seaLevel = seaLevel + up;
+       if(seaLevel == 0 && valleys.length >= 1){
+         number += 1;
+         valleys = "";
+       }
+       
+    }else{
+         valleys += arr[i]
+         seaLevel = seaLevel - down;
+    } 
+  }
+    return number;
+}
+//console.log(countingValleys(0,"UDDDUDUUDDUU"))
+
+ function sumPrimes(num) {
+   let total = 0
+   for(let i = 2; i <= num; i++){
+      if(checkPrime(i)){
+        total += i;
+     }
+  }
+  return total;
+ } 
+
+ function checkPrime(number){
+   for(let i = 2; i < number; i++){
+      if(number % i == 0){
+          return false;
+      }
+   }
+   return true;
+ }
+//console.log(sumPrimes(10));
+
+function chunkArray(arr,size){
+  const array = [];
+  for(let i = 0; i < arr.length; i+=size){
+    array.push(arr.slice(i, i + size));
+    return array;
+  }
+}
+//console.log(chunkArray([1,2,3,4,5,6],2))
+
+function translatePigLatin(str) {
+  let arr = str.split("")
+  let letter;
+  let nonVowel = ""
+  const vowels = /["a","e","i","o","u"]/g;
+    if(arr[0].match(vowels)){
+       return arr.join("") + "way";
+
+    }else if(!arr[0].match(vowels)){
+     for(let i = 0; i < arr.length; i++){ 
+        
+       letter = arr[0];
+       nonVowel += letter;
+       arr.shift(letter);
+       arr.push(letter);
+       if(!arr[0].match(vowels)) continue
+       
+       else 
+       return arr.join("") + "ay"
+    }
+  
+   }
+  return nonVowel + "ay"
+}
+//console.log(translatePigLatin("rhythm"));
+
+  let ageGroup = [18, 21, 1, 1, 51, 18, 21, 5, 18, 7, 10];
+  let uniqueAgeGroup = ageGroup.reduce(function (accumulator, currentValue) {
+    if (accumulator.indexOf(currentValue) === -1) {
+      accumulator.push(currentValue);
+    }
+    return accumulator;
+  }, []);
+  
+  
+
+function getIndexToIns(arr, num){ 
+    arr.push(num)
+    arr.sort((a,b)=>a-b);
+    
+    return arr.indexOf(num)  
+}
+//console.log(getIndexToIns([40, 60], 50));
+
+
+
+function destroyer(arr){
+  for(let i = 1; i < arguments.length; i++){
+    for(let j = 0; j < arguments[0].length; j++){
+      if(arguments[0][j] === arguments[i]){
+        delete arguments[0][j]
+      }
+   }
+ }
+  return arr.filter(value => value != undefined);
+}
+//console.log(destroyer([1,2,3,1,2,3],2,3))
+
+function sumAll(arr) {
+  let min = Math.min(...arr);
+  let max = Math.max(...arr)
+  let total = min;
+  for(let i = min; i < max; i++){
+    total += (i+1); 
+  }
+  return total
+  }
+
+function sockMerchant(n,ar){
+  function removeDuplicates(array) {
+  return array.filter((a, b) => array.indexOf(a) === b)
+  };
+  const countOccurrences = (val, arr) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);   
+  let pair = 0;
+  let pairCounter;
+  let loopLength = removeDuplicates(ar);
+
+     for(let i = 0; i < loopLength.length; i++){
+       pairCounter = loopLength[i];
+    
+        if(countOccurrences(pairCounter,ar) == 1){
+          continue;
+
+        }else if(countOccurrences(pairCounter,ar) % 2 !== 0){
+          pair += countOccurrences(pairCounter,ar) - 1;
+        
+        }else{
+          pair += countOccurrences(pairCounter,ar);
+        }
+     }  
+  return pair/2;
+}
+//console.log(sockMerchant(1, [40, 10, 20, 50, 70, 20, 12, 30 , 10, 5, 10, 30, 50, 10, 20]))
+
+
+//USEFUL Arrow functions Here....
+//function removeDuplicates(array) {
+  //return array.filter((a, b) => array.indexOf(a) === b)
+  //};
+//const countOccurrences = (val, arr) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+function gradingStudents(grades) {
+  const check = (value) => {
+       if(value % 5 !== 0) return check(value + 1)
+       return value
+ } 
+    let arr = [];
+   
+    for(let i = 0; i < grades.length; i++){
+        if(grades[i] < 38) arr.push(grades[i])
+       
+        else if(grades[i] % 5 !== 0){
+            let value = grades[i];         
+            let store = check(value);
+            if(store - value < 3){ 
+                arr.push(store);
+            }else arr.push(value)   
+            
+        }else arr.push(grades[i])
+  }  
+  return arr ;
+}
+  //console.log(gradingStudents([10,32,100,84,41,29]));
+
+
+/*
+ function plusMinus(...arr){
+  let positive = 0, negative = 0 , neutral = 0;
+  let posRatio = 0, negRatio = 0, neutralRatio =0; 
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i] >= 1){
+      positive += 1;
+      posRatio = positive / arr.length;
+
+    }else if(arr[i] < 0){
+      negative += 1;
+      negRatio = negative / arr.length;
+    
+    }else{
+      neutral += 1;
+      neutralRatio = neutral / arr.length;
+
+    }
+  }
+  console.log(posRatio.toFixed(6))
+  console.log(negRatio.toFixed(6))
+  console.log(neutralRatio.toFixed(6))
+}
+  // console.log(plusMinus([-1,-4,3,5,-7,0,0,5,3]))
+
+   function vowelsAndConsonants(s) {
+    const vowels = ["a","e","i","o","u"];
+    let stringarr = s.split("");               
+    for(let i = 0; i < s.length; i++){
+       if(vowels.includes(s[i])){
+          console.log(s[i])
+                
+                }
+              }
+    for(let k = 0; k < s.length; k++){
+                if(!vowels.includes(s[k])){
+                  console.log(s[k])
+ }
+}
+    
+}
+//console.log(vowelsAndConsonants("comments"))
+
+   function getSecondLargest(nums) { 
+    let largest = nums[0];
+    for(let i = 0; i < nums.length; i++){
+         if(largest < nums[i]){
+             largest = nums[i];
+         }   
+    }
+    let secondLargest = nums[0]; // 2 3 6 6 5
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] == largest) continue;
+        
+        else if(secondLargest < nums[i]){
+            secondLargest = nums[i];
+        }
+      }
+      return secondLargest;
+    }
+const contacts = [
+  {
+    firstName: "Akira",
+    lastName: "Laine",
+    number: "0543236543",
+    likes: ["Pizza", "Coding", "Brownie Points"],
+  },
+  {
+    firstName: "Harry",
+    lastName: "Potter",
+    number: "0994372684",
+    likes: ["Hogwarts", "Magic", "Hagrid"],
+  },
+  {
+    firstName: "Sherlock",
+    lastName: "Holmes",
+    number: "0487345643",
+    likes: ["Intriguing Cases", "Violin"],
+  },
+  {
+    firstName: "Kristian",
+    lastName: "Vos",
+    number: "unknown",
+    likes: ["JavaScript", "Gaming", "Foxes"],
+  }
+];
+function lookUpProfile(name, prop) {
+  
+for(let i = 0; i < contacts.length; i++){
+  for(let j in contacts[i]){
+  if(contacts[i]["firstName"] == name){ 
+    console.log(contacts[i][j])
+    if(contacts[i][prop]){
+     console.log(contacts.length)
+     return contacts[i][prop];
+    }else return "No such property"
+   }
+   
+  }
+ }
+  return "No such contact"
+}
+//console.log(lookUpProfile("Akira", "likes"));
+
+const recordCollection = {
+  2548: {
+    albumTitle: 'Slippery When Wet',
+    artist: 'Bon Jovi',
+    tracks: ['Let It Rock', 'You Give Love a Bad Name']
+  },
+  2468: {
+    albumTitle: '1999',
+    artist: 'Prince',
+    tracks: ['1999', 'Little Red Corvette']
+  },
+  1245: {
+    artist: 'Robert Palmer',
+    tracks: []
+  },
+  5439: {
+    albumTitle: 'ABBA Gold'
+  }
+};
+
+//console.log(recordCollection[1245]['tracks'])
+
+/*
+// Only change code below this line
+function updateRecords(records, id, prop, value) {
+  console.log(records[id] == 5439)
+
+  return console.log(records,id,prop,value)
+ // return records;
+}
+
+updateRecords(recordCollection, 5439, 'artist', 'ABBA');
+//updateRecords(recordCollection, 5439, 'artist', 'ABBA');
+*/
+
+ function truncateString(str,num){
+  if (str.length === num || str.length < num) return str
+    let string = `${str.slice(0,num)}...`; 
+     return string;
+    
+ }
+ //console.log(truncateString("A-tisket a-tasket A green and yellow basket",43 + 2));
+
+function findLongestWordLength(str) {
+  
+  getLength = str.split(" ").map(item => item.length)
+  return Math.max.apply(null, getLength)
+
+}
+
+//console.log(findLongestWordLength("The quick brown fox jumpeddd over the lazy dog"));
+
+function factorialize(num) {
+  for(i = num; i > 1; i--){
+    num *= (i - 1)
+  }
+  return num
+}
+//console.log(factorialize(6));
+
+
+function reverseString(str) {
+  return str.split("").reverse().join("")
+  
+}
+
+//console.log(reverseString("hello"))
+
+const people = [
+      {
+        name: "Carly",
+        yearOfBirth: 1942,
+        yearOfDeath: 1970,
+      },
+      {
+        name: "Ray",
+        yearOfBirth: 1962,
+        yearOfDeath: 2011,
+      },
+      {
+        name: "Jane",
+        yearOfBirth: 1912,
+        yearOfDeath: 1941,
+      },
+    ]
+
+
+    const getAge = function(birth, death) {
+  if (!death) {
+    death = new Date().getFullYear();
+  }
+  return death - birth;
+};
+
+
+  const findTheOldest = function(array) {
+    array.reduce((oldest, currentPerson) => {
+    const oldestAge = getAge(oldest.yearOfBirth, oldest.yearOfDeath)
+    const currentAge = getAge(currentPerson.yearOfBirth, currentPerson.yearOfDeath)
+    return oldestAge < currentAge ? currentPerson : oldest
+  })
+};
+
+  const getTheTitles = function(book){
+    return book.map(item =>  item.title)
+  }
+
+  const books = [
+      {
+        title: 'Book',
+        author: 'Name'
+      },
+      {
+        title: 'Book2',
+        author: 'Name2'
+      }
+    ]
+    //console.log(getTheTitles(books))
+
+  const fibonacci = function(number){
+    if(number < 0){return "OOPS"} 
+    let a = 0;
+    let b = 1;
+    while(number > 1){
+    const storage = b;
+    b = a + b;
+    a = storage;
+    number--;
+    }
+    return b;
+  } 
+
+
+
+const palindromes = function(word){
+  toLowerCase = word.toLowerCase();
+  neword = toLowerCase.replace(/[.,' ']/g,'')
+  word1 = neword.split("").reverse()
+  if(word1.includes("!")){
+    punctuation = word1.shift();
+    movePunctuation = word1.push(punctuation); 
+    mergeWord = word1.join(""); 
+ }
+  mergeWord = word1.join("")  
+  const check = neword === mergeWord ? true : false;
+  return check;
+}
+
+
+const palindrome = function(string) {
+  processedString = string.toLowerCase().replace(/[^A-Za-z]/g, "");
+  console.log(processedString)
+  return (
+    processedString
+      .split("")
+      .reverse()
+      .join("") == processedString
+  );   
+};
+//console.log(palindromes("!A nut for a jar of tuna!"))
+
+
+const sum = function(arr){
+  const number = arr.reduce(function(store,cvalue){ 
+  return store + cvalue;
+  
+},0)
+  return number;
+};
+//alert(sum([7]))
+
+const factorial = function(number) {
+  result = number;
+  if(number == 0) return 0;
+  
+  for(i = number; i > 1; i--)
+   result = result * (i - 1);
+   
+  return result;
+};
+
+//console.log(factorial(0))
+
+ person = {
+   collins : {hobby: "computers",
+   job: "programmer"},
+
+   mezie : 31000,
+   obinwa : 10000,
+   info : function(){alert(`i'm a ${salaries.collins["job"]} and ${salaries.collins["hobby"]} are my hobby`)}
+ };
+ let data = "carl";
+ let value = 55;
+ person[data] = value;
+
+//alert(Object.keys(person))
+function times(obj) {
+  for(let key in obj){
+    
+
+      
+      //alert(obj[key] * 2)
+     // alert(obj[key])
+    
+    
+  }
+  
+}
+//multiply(salaries)
+    /*
+   let choice = prompt("enter any number between 1 and 64");  
+   let value = choice * choice; 
+   let container = document.querySelector(".setBox");
+   let arr = [];
+   for(let number = 1; number <= value; number++){  
+     let divs = document.createElement("div");
+     divs.setAttribute("class","divclass");
+     arr.push(divs);
+     console.log(arr);
+    }
+
+   let each = arr.forEach(element => {
+    container.appendChild(element)      
+   }); */
+
+  </script>
+ </body>
+</html>
