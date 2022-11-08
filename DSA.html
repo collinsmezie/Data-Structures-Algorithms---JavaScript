@@ -23,39 +23,34 @@
   
 
   function diagonalDifference(arr) {
-    /**
-     * [
-     * [11, 2, 4]
-     * [4, 5, 6]
-     * [9, 8, 9]
-     * ]
-     * 
-     */
-    let left = 0;
-    let right = 0;
+    let left_to_right = 0;
+    let right_to_left = 0;
     for (let i = 0; i < arr.length; i++) {
         for (let j = i; j < arr.length; j++) {
-            left += arr[i][j];
-            console.log(left)
-            break;
-        }
-        
-        for (let j = arr.length; j < arr.length; j--) {
-            // right += arr[i][j];
-            console.log(j)
+            left_to_right += arr[i][j];
+            right_to_left += arr[i][arr[i].length-j-1]
             break;
         }
     }
+return Math.abs(left_to_right - right_to_left)
+
 }
 
-function toBinary(n) {
-  let arr = [];
-  for(let i = n; i >= 1; i /= 2 ){
-    arr.push(Math.floor(i%2));
-  }
-  let binaryString =  arr.reverse().join('')
-  return binaryString.match(/(1)\1+/g)
-} 
+
+function toBinary() {
+let arr = [];
+    for(let i = n; i >= 1; i /= 2 ){
+      arr.push(Math.floor(i%2));
+    }
+    let arrReverse =  arr.reverse().join('');
+    let regExp = arrReverse.match(/(1)\1+/g);
+    if(regExp) {
+      return Math.max(...regExp).toString().length
+    }
+    else{
+      return 1
+    }
+};
 
 /** * @param {number[]} nums * @param {number} target * @return {number} */ 
 const middle = (left, right) => left + Math.floor((right - left) / 2); 
