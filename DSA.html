@@ -21,80 +21,184 @@
   //https://www.codecademy.com/learn/learn-ruby
   //https://microverse.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fmicroverse.zendesk.com%2Fhc%2Fen-us%2Farticles%2F360026625973-How-can-I-get-help-from-TSEs
   
-  const unit = {
-    1: "one",
-    2: "two",
-    3: "three",
-    4: "four",
-    5: "five",
-    6: "six",
-    7: "seven",
-    8: "eight",
-    9: "nine"
-  }
+  const experiments = [['Sam 1', 'Sam 2', 'Sam 3'], ['Sam 4', 'Sam 5', 'Sam 6']]
+  const reagents = [['Reag X', 'Reag Y'], ['Reag Y', 'Reag Z']]
 
-  const tens = {
-    1: "ten",
-    2: "twenty",
-    3: "thirty",
-    4: "forty",
-    5: "fifty",
-    6: "sixty",
-    7: "seventy",
-    8: "eighty",
-    9: "ninety"
-  }
-
-  const teens = {
-    1: "eleven",
-    2: "twelve",
-    3: "thirteen",
-    4: "fourteen",
-    5: "fifteen",
-    6: "sixteen",
-    7: "seventeen",
-    8: "eighteen",
-    9: "nineteen"
-  }
-function convert(str){
-
-  const placeValue = {
-    unit: null,
-    tens: null,
-    hundred: null,
-    thousand: null,
-    "ten thousand": null,
-    "hundred thousand": null,
-    million: null,
-    "ten million": null,
-    "hundred million": null
-  }
-
-  let placeValueArr = Object.entries(placeValue)
-      console.log("length",str.length)
-
-  for(let i = 0; i < str.length; i++){
-    if(valueArr[i][1] === null){
-      valueArr[i][1] = str[str.length - i - 1]
+  experiments.forEach((experiment, index) => {
+    for(let sample of experiment){
+      console.log(sample)
+      for(let reagent of reagents[index]){
+        console.log(reagent)
+      }
     }
-  return "end"
+  })
 
+  // Start with your code from last challenge.
+class Node {
+  constructor(value, next_node = null) {
+    this.value = value;
+    this.next_node = next_node;
+  }
 }
 
-console.log(convert("35273740"))
+class LinkedList {
+  // setup head and tail
+  constructor() {
+    this.head = null;
+  }
+  add(number) {
+    // your code here
+    var node = new Node(number);
+    var current;
+    if (this.head == null)
+      this.head = node;
+    else {
+      current = this.head;
+      while (current.next_node) {
+        current = current.next_node;
+      }
+      current.next_node = node;
+    }
+  }
+  remove(index) {
+    var curr, prev, it = 0;
+    curr = this.head;
+    prev = curr;
+    if (index === 0) {
+      this.head = curr.next_node;
+    } else {
+
+      while (it < index) {
+        it++;
+        prev = curr;
+        curr = curr.next_node;
+      }
+
+      prev.next_node = curr.next_node;
+    }
+    this.size--;
+
+    return curr.element;
+  }
+  addAt(index, element) {
+    var node = new Node(element);
+    var curr, prev;
+    curr = this.head;
+    if (index == 0) {
+      node.next_node = this.head;
+      this.head = node;
+    } else {
+      curr = this.head;
+      var it = 0;
+      while (it < index) {
+        it++;
+        prev = curr;
+        curr = curr.next_node;
+      }
+      node.next_node = curr;
+      prev.next_node = node;
+    }
+  }
+
+  get(index) {
+    var count = 0;
+    var current = this.head;
+    while (current != null) {
+      if (count === index)
+        return current.value;
+      count++;
+      current = current.next_node;
+    }
+    return -1;
+  }
+}
 
 
+  
+  var numberToWords = function(num) {
+    let unit = {
+        1: 'One',
+        2: 'Two',
+        3: 'Three',
+        4: 'Four',
+        5: 'Five',
+        6: 'Six',
+        7: 'Seven',
+        8: 'Eight',
+        9: 'Nine'
+    }
 
+  let  teen = {
+        11: 'Eleven',
+        12: 'Twelve',
+        13: 'Thirteen',
+        14: 'Fouteen',
+        15: 'Fifteen',
+        16: 'Sixteen',
+        17: 'Seventeen',
+        18: 'Eighteen',
+        19: 'Nineteen',
+    };
+  
 
+let tens = {
+        0: 'and',
+        1: 'Ten',
+        2: 'Twenty',
+        3: 'Thirty',
+        4: 'Forty',
+        5: 'Fifty',
+        6: 'Sixty',
+        7: 'Seventy',
+        8: 'Eighty',
+        9: 'Ninety'
+    };
 
+    let input = num.toString();
+    let result = [];
 
+    const arr = [
+    ['hundred-million'],
+    ['ten million'],  
+    ['million'],
+    ['hundred-thousand', 'hundred'],
+    ['ten-thousand'],
+    ['thousand'],
+    ['hundred'], 
+    ['ten'], 
+    ["only", 'unit']]
 
+    let position = input.length
+    for(let i = 0; i < input.length; i++){
+      let positionValue = arr[arr.length - position]
 
+      if(input[i] !== 0){
+        if(positionValue[0].includes('ten')){
+          let number = input[i] + input[i+1]
+          if(teen[number]){
+            result.push(teen[number])
+            position -
+          }
+          // console.log('position:',position) 
+          // console.log('number:',number)
+          result.push(tens[input[i]])
+          console.log(result)
+          position--
+          console.log('position:',position) 
+        }else{
+          console.log('position value:', positionValue) 
+          // console.log('position:',position) 
+          // result.push(tens[input[i]],positionValue[0]  )
+          result.push(unit[input[i]],positionValue[0]  )
+          console.log(result)
+          position--
+          console.log('position:',position) 
+        }
+      }
+    }
+}
 
-
-
-
-
+console.log(numberToWords(1502))
 
 
 
@@ -113,6 +217,123 @@ console.log(convert("35273740"))
 return Math.abs(left_to_right - right_to_left)
 
 }
+
+var numberToWords = function(num) {
+    let unit = {
+        1: 'One',
+        2: 'Two',
+        3: 'Three',
+        4: 'Four',
+        5: 'Five',
+        6: 'Six',
+        7: 'Seven',
+        8: 'Eight',
+        9: 'Nine'
+    }
+
+  let  teen = {
+        11: 'Eleven',
+        12: 'Twelve',
+        13: 'Thirteen',
+        14: 'Fouteen',
+        15: 'Fifteen',
+        16: 'Sixteen',
+        17: 'Seventeen',
+        18: 'Eighteen',
+        19: 'Nineteen',
+    };
+    let tens = {
+        0: 'and',
+        1: 'Ten',
+        2: 'Twenty',
+        3: 'Thirty',
+        4: 'Forty',
+        5: 'Fifty',
+        6: 'Sixty',
+        7: 'Seventy',
+        8: 'Eighty',
+        9: 'Ninety'
+    };
+
+let tenty = {
+        0: 'and',
+        10: 'Ten',
+        20: 'Twenty',
+        30: 'Thirty',
+        40: 'Forty',
+        50: 'Fifty',
+        60: 'Sixty',
+        70: 'Seventy',
+        80: 'Eighty',
+        90: 'Ninety'
+    };
+
+    let input = num.toString();
+    let max = 3;
+    let result = [];
+
+    const obj = {
+      million: [],
+      thousand: [],
+      hundred: [],
+    }
+
+    for(let i = 0; i < input.length; i++){
+      if(obj['hundred'].length !== max){
+        obj['hundred'].unshift(input[input.length - i - 1])
+        
+      }else if(obj['thousand'].length !== max) {
+        obj['thousand'].unshift(input[input.length - i - 1])
+
+      }else if(obj['million'].length !== max) {
+        obj['million'].unshift(input[input.length - i - 1])
+      }
+    }
+  
+for(let key in obj){
+  for(let index in obj[key]){
+    if(obj[key].length > 2){
+      if(obj[key][index] !== 0 && obj[key].indexOf(obj[key][index]) === 0 ){
+        result.push(unit[obj[key][index]] + " hundred and")
+
+      }else{
+        let value = obj[key][index] + obj[key][obj[key].indexOf(obj[key][index]) + 1]
+        console.log("value", value)
+        if(tenty[value]){
+          result.push(tenty[value])
+          if(obj[key].length === index){
+            result.push(key)
+          }
+          break
+        
+        }else if(teen[value]){
+          result.push(teen[value], key)
+          break
+        } else {
+            result.push(tens[obj[key][index]])
+            result.push(unit[obj[key][obj[key].indexOf(obj[key][index]) + 1]],key)
+          break
+        }   
+      }
+    }
+    if(obj[key].length < 2){
+       if(obj[key][index] !== 0 && obj[key].indexOf(obj[key][index]) === 0){
+        result.push(unit[obj[key][index]])
+        if(obj[key].length == index+1){
+          result.push(key)
+        }
+      }
+    }    
+  }
+}
+console.log(obj)
+console.log(num)
+
+return result.join(' ')
+}
+
+console.log(numberToWords(6213560))
+
 
 
 function toBinary() {
