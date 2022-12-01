@@ -20,10 +20,11 @@
    
   //https://www.codecademy.com/learn/learn-ruby
   //https://microverse.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fmicroverse.zendesk.com%2Fhc%2Fen-us%2Farticles%2F360026625973-How-can-I-get-help-from-TSEs
-  
+    
+
   const experiments = [['Sam 1', 'Sam 2', 'Sam 3'], ['Sam 4', 'Sam 5', 'Sam 6']]
   const reagents = [['Reag X', 'Reag Y'], ['Reag Y', 'Reag Z']]
-
+  
   experiments.forEach((experiment, index) => {
     for(let sample of experiment){
       console.log(sample)
@@ -32,6 +33,16 @@
       }
     }
   })
+
+  class Plate {
+    constructor(number) {
+      if(number === 98)
+      //create 2d matrix
+        this.matrix = new Array(8).fill().map(() => new Array(12).fill(null));
+      if(number === 384)
+        this.matrix = new Array(16).fill().map(() => new Array(24).fill(null))
+    }
+  }
 
   // Start with your code from last challenge.
 class Node {
