@@ -20,29 +20,64 @@
    
   //https://www.codecademy.com/learn/learn-ruby
   //https://microverse.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fmicroverse.zendesk.com%2Fhc%2Fen-us%2Farticles%2F360026625973-How-can-I-get-help-from-TSEs
-    
+const plateSize =  96
+const samples = [['Sam 1','Sam 2'], ['Sam 3', 'Sam 4', 'Sam 5']]
+const reagents = [['Reag A', 'Reag B', 'Reag C'], ['Reag X', 'Reag Y', 'Reag Z']]
+const replicate = [5,5]
 
-  const experiments = [['Sam 1', 'Sam 2', 'Sam 3'], ['Sam 4', 'Sam 5', 'Sam 6']]
-  const reagents = [['Reag X', 'Reag Y'], ['Reag Y', 'Reag Z']]
-  
-  experiments.forEach((experiment, index) => {
-    for(let sample of experiment){
-      console.log(sample)
-      for(let reagent of reagents[index]){
-        console.log(reagent)
-      }
+class SoftLab {
+  constructor(number) {
+    if(number === 96){
+      this.rows = 8
+      this.columns = 12
+      this.matrix = new Array(this.rows).fill().map(() => new Array(this.columns).fill(null));
     }
-  })
-
-  class Plate {
-    constructor(number) {
-      if(number === 98)
-      //create 2d matrix
-        this.matrix = new Array(8).fill().map(() => new Array(12).fill(null));
-      if(number === 384)
-        this.matrix = new Array(16).fill().map(() => new Array(24).fill(null))
-    }
+    if(number === 384){
+      this.rows = 16
+      this.columns = 24
+      this.matrix = new Array(this.rows).fill().map(() => new Array(this.columns).fill(null))
+    } 
   }
+}
+
+function experiment(plateSize, samples, reagents, replicate){
+    const result = []
+    const softlab = new SoftLab(plateSize)
+    let matrix = softlab.matrix
+    let row = 0
+    let column = 0
+    console.log(softlab.rows,softlab.columns)
+    // console.log(matrix)
+
+    samples.forEach((experiment, index) => {
+      for(let sample of experiment){
+       for(let i = 0; i < replicate[index]; i++){
+        for(let reagent of reagents[index]){
+            if(matrix[row][column] === null && column !== softlab.columns){
+              matrix[row][column] = [sample,reagent]
+              column++
+            }else if(row !== softlab.rows-1 && matrix[row][column] === undefined){
+              row++
+              column = 0
+              matrix[row][column] = [sample,reagent]
+              column++
+            }
+          else {
+              result.push("result",matrix)
+              matrix = new SoftLab(plateSize).matrix
+              row = 0
+              column = 0
+              matrix[row][column] = [sample,reagent]
+              column++
+          }
+        }
+      }
+     }
+    })
+    result.push(matrix)
+    return result
+}
+console.log(experiment(plateSize, samples, reagents, replicate))
 
   // Start with your code from last challenge.
 class Node {
@@ -188,7 +223,7 @@ let tens = {
           let number = input[i] + input[i+1]
           if(teen[number]){
             result.push(teen[number])
-            position -
+            position --
           }
           // console.log('position:',position) 
           // console.log('number:',number)
