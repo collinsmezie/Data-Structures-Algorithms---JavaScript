@@ -20,6 +20,61 @@
    
   //https://www.codecademy.com/learn/learn-ruby
   //https://microverse.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fmicroverse.zendesk.com%2Fhc%2Fen-us%2Farticles%2F360026625973-How-can-I-get-help-from-TSEs
+
+
+function buildUrl(object) {
+    
+    function findMedian(arr){
+       arr.sort((a, b) => a - b)
+      let median;
+
+      //if else block to check for even or odd
+      if(arr.length%2 != 0){
+       //odd case
+
+       //find middle index
+           let middleIndex = Math.floor(arr.length/2)
+
+           //find median
+           median = arr[middleIndex]
+       }else{
+           //even case
+
+           //find middle index
+           let middleIndex = Math.floor(arr.length/2)
+
+           //find median
+           median = arr[middleIndex] + arr[middleIndex + 1]
+}
+      return median
+}
+
+   function convertTime(timeDiff){
+
+       let hours = Math.floor(timeDiff / 60 / 60);
+
+       let minutes = Math.floor(timeDiff / 60) - (hours * 60);
+
+       let seconds = timeDiff % 60;
+
+       let timeFormat = `${hours}h ${minutes}min  ${seconds}s`
+       return timeFormat
+   }
+   const checkValid = (data) => typeof(data) === "number"
+   let array = data.timestamps.filter(checkValid)
+
+   let totalTimeDiff = array[array.length - 1] - array[0]
+   let duration = convertTime(totalTimeDiff)
+   let medianTime = findMedian(array)
+   let medianTimeDifference = medianTime - array[0]
+   let median = convertTime(medianTimeDifference)
+
+
+   const url = `https://server/record?name=${data.name}&duration=${duration}&median=${median}`;
+   return url;
+}
+
+
 const plateSize =  96
 const samples = [['Sam 1','Sam 2'], ['Sam 3', 'Sam 4', 'Sam 5']]
 const reagents = [['Reag A', 'Reag B', 'Reag C'], ['Reag X', 'Reag Y', 'Reag Z']]
