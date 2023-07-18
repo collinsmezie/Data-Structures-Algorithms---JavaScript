@@ -21,7 +21,13 @@
   //https://www.codecademy.com/learn/learn-ruby
   //https://microverse.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fmicroverse.zendesk.com%2Fhc%2Fen-us%2Farticles%2F360026625973-How-can-I-get-help-from-TSEs
 
-
+function isPalindrome(str) {
+   let editedStr = str.replace(/[^a-zA-Z0-9]/g, "").toLowerCase()
+   let palindrome = editedStr.split("").reverse().join('')
+   return palindrome === editedStr;
+}
+console.log(isPalindrome("My age is 0, 0 si ega ym."));
+  
 function rot13(str) {
   const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   let stringBuilder = ""
