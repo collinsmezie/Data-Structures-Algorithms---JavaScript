@@ -1,3 +1,12 @@
+
+//split array by any requested size
+for (let i = str.length; i > 0; i -= groupSize) {
+    let newStr = str.slice(0, i) 
+    result.unshift(newStr.slice(-groupSize).split(""));
+    
+  }
+
+
 const RemoveDuplicate = (arr) => {
   const array = [], set = new Set();
   arr.map(item => {set.has(item) ? array.push(item) : set.add(item)})
