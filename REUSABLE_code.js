@@ -1,3 +1,60 @@
+class HashMap {
+  constructor(size = 10) {
+    this.size = size;
+    this.buckets = new Array(size).fill(null).map(() => []);
+  }
+
+  hash(key) {
+    let hashValue = 0;
+    for (const char of key) {
+      hashValue += char.charCodeAt(0);
+    }
+    return hashValue % this.size;
+  }
+
+  set(key, value) {
+    const index = this.hash(key);
+    const bucket = this.buckets[index];
+
+    for (const pair of bucket) {
+      if (pair.key === key) {
+        pair.value = value;
+        return;
+      }
+    }
+
+    bucket.push({ key, value });
+  }
+
+  get(key) {
+    const index = this.hash(key);
+    const bucket = this.buckets[index];
+
+    for (const pair of bucket) {
+      if (pair.key === key) {
+        return pair.value;
+      }
+    }
+
+    return undefined;
+  }
+
+  remove(key) {
+    const index = this.hash(key);
+    const bucket = this.buckets[index];
+
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i].key === key) {
+        bucket.splice(i, 1);
+        return;
+      }
+    }
+  }
+}
+
+
+
+
 
 //split array by any requested size
 for (let i = str.length; i > 0; i -= groupSize) {
