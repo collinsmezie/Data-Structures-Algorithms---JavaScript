@@ -1,3 +1,62 @@
+// Hash map - open addressing with linear probing collision handling
+class HashMap {
+  constructor(size = 10) {
+    this.size = size;
+    this.keys = new Array(size);
+    this.values = new Array(size);
+  }
+
+  _hash(key) {
+    let hash = 0;
+    for (const char of key) {
+      hash += char.charCodeAt(0);
+    }
+    return hash % this.size;
+  }
+
+  set(key, value) {
+    let index = this._hash(key);
+
+    while (this.keys[index] !== undefined) {
+      if (this.keys[index] === key) {
+        this.values[index] = value;
+        return;
+      }
+      index = (index + 1) % this.size;
+    }
+
+    this.keys[index] = key;
+    this.values[index] = value;
+  }
+
+  get(key) {
+    let index = this._hash(key);
+
+    while (this.keys[index] !== undefined) {
+      if (this.keys[index] === key) {
+        return this.values[index];
+      }
+      index = (index + 1) % this.size;
+    }
+    return undefined;
+  }
+
+  delete(key) {
+    let index = this._hash(key);
+
+    while (this.keys[index] !== undefined) {
+      if (this.keys[index] === key) {
+        this.keys[index] = undefined;
+        this.values[index] = undefined;
+        return;
+      }
+      index = (index + 1) % this.size;
+    }
+  }
+}
+
+
+// Hash map - separate chaining collision handling
 class HashMap {
   constructor(size = 10) {
     this.size = size;
