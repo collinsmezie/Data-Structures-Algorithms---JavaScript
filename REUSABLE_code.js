@@ -1,3 +1,89 @@
+// Hash map - separate chaining collision handling and load factor
+class HashMap {
+  constructor(initialCapacity = 10, loadFactor = 0.75) {
+    this.buckets = new Array(initialCapacity).fill(null).map(() => []);
+    this.size = 0;
+    this.loadFactor = loadFactor;
+    this.threshold = initialCapacity * loadFactor;
+    this.initialCapacity = initialCapacity
+
+  }
+
+  _hash(key) {
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+      hash = (hash + key.charCodeAt(i)) % this.buckets.length;
+    }
+    return hash;
+  }
+
+  set(key, value) {
+    const index = this._hash(key);
+    const bucket = this.buckets[index];
+
+    for (const entry of bucket) {
+      if (entry.key === key) {
+        entry.value = value;
+        return;
+      }
+    }
+
+    bucket.push({ key, value });
+    this.size++;
+
+    if (this.size > this.threshold) {
+      this._resize();
+    }
+  }
+
+  get(key) {
+    const index = this._hash(key);
+    const bucket = this.buckets[index];
+
+    for (const entry of bucket) {
+      if (entry.key === key) {
+        return entry.value;
+      }
+    }
+
+    return undefined;
+  }
+
+  delete(key) {
+    const index = this._hash(key);
+    const bucket = this.buckets[index];
+
+    for (let i = 0; i < bucket.length; i++) {
+      if (bucket[i].key === key) {
+        bucket.splice(i, 1);
+        this.size--;
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  _resize() {
+    console.log("Threshold reached - resizing started")
+    this.initialCapacity = this.buckets.length * 2;
+    const newBuckets = new Array(this.initialCapacity).fill(null).map(() => []);
+
+    for (const bucket of this.buckets) {
+      for (const entry of bucket) {
+        const newIndex = this._hash(entry.key, this.initialCapacity);
+        newBuckets[newIndex].push(entry);
+      }
+    }
+
+    this.buckets = newBuckets;
+    this.threshold = this.initialCapacity * this.loadFactor;
+    console.log("resizing completed")
+  }
+}
+
+
+
 // Hash map - open addressing with linear probing collision handling
 class HashMap {
   constructor(size = 10) {
@@ -54,64 +140,6 @@ class HashMap {
     }
   }
 }
-
-
-// Hash map - separate chaining collision handling
-class HashMap {
-  constructor(size = 10) {
-    this.size = size;
-    this.buckets = new Array(size).fill(null).map(() => []);
-  }
-
-  hash(key) {
-    let hashValue = 0;
-    for (const char of key) {
-      hashValue += char.charCodeAt(0);
-    }
-    return hashValue % this.size;
-  }
-
-  set(key, value) {
-    const index = this.hash(key);
-    const bucket = this.buckets[index];
-
-    for (const pair of bucket) {
-      if (pair.key === key) {
-        pair.value = value;
-        return;
-      }
-    }
-
-    bucket.push({ key, value });
-  }
-
-  get(key) {
-    const index = this.hash(key);
-    const bucket = this.buckets[index];
-
-    for (const pair of bucket) {
-      if (pair.key === key) {
-        return pair.value;
-      }
-    }
-
-    return undefined;
-  }
-
-  remove(key) {
-    const index = this.hash(key);
-    const bucket = this.buckets[index];
-
-    for (let i = 0; i < bucket.length; i++) {
-      if (bucket[i].key === key) {
-        bucket.splice(i, 1);
-        return;
-      }
-    }
-  }
-}
-
-
 
 
 
