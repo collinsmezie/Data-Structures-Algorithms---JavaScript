@@ -1,3 +1,62 @@
+//Generic Binary Tree
+class TreeNode {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+function buildTreeFromArray(arr, index = 0) {
+    if (index >= arr.length || arr[index] === null) {
+        return null;
+    }
+
+    const node = new TreeNode(arr[index]);
+    node.left = buildTreeFromArray(arr, 2 * index + 1);
+    node.right = buildTreeFromArray(arr, 2 * index + 2);
+
+    return node;
+}
+
+function inorderTraversal(root, result = []) {
+    if (root !== null) {
+      if(root.left === null && root.right === null){
+        result.push(root.value)
+      }
+        inorderTraversal(root.left, result);
+        // result.push(root.value);
+        // console.log(root.value)
+        inorderTraversal(root.right, result);
+    }
+    return result;
+}
+
+function printTree(root, prefix = "", isLeft = true) {
+    if (root !== null) {
+        console.log(prefix + (isLeft ? "├── " : "└── ") + root.value);
+        const newPrefix = prefix + (isLeft ? "│   " : "    ");
+        printTree(root.left, newPrefix, true);
+        printTree(root.right, newPrefix, false);
+    }
+    return 0
+}
+
+const inputArray = [3,5,1,6,7,4,2,null,null,null,null,null,null,9,8];
+const root = buildTreeFromArray(inputArray);
+
+const inorderResult = inorderTraversal(root);
+console.log("Inorder Traversal:", inorderResult);
+console.log(printTree(root))
+
+
+
+
+
+
+
+
+
 // Simple BINARY TREE
 class TreeNode {
   constructor(value) {
