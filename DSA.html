@@ -76,16 +76,15 @@ function longestPath(root)
     }
     console.log(root)
     // Recursive call on root.right
+    rightCounter++
+    console.log(`${rightCounter} instances of right node`)
     let right = longestPath(root.right);
-        console.log('right',root.right)
-        // console.log('right',right)
+    rightCounter--
 
-      
-    // Recursive call on root.left
+    leftCounter++
+    console.log(`${leftCounter} instances of left node`)
     let left = longestPath(root.left);
-        console.log("left",root.left)
-        // console.log('left',left)
-
+    leftCounter--
       
     // Compare the size of the two ArrayList
     // and insert current node accordingly
