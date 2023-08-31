@@ -52,7 +52,7 @@ console.log(printTree(root))
 
 
 
-// Simple BINARY SEARCH TREE
+// Simple BINARY TREE
 class TreeNode {
   constructor(value) {
     this.value = value;
