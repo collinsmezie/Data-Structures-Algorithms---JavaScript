@@ -1,3 +1,107 @@
+class TreeNode {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinaryTree {
+  constructor() {
+    this.root = null;
+  }
+   insert(data) {
+    const newNode = new TreeNode(data);
+
+    if (!this.root) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+
+  insertNode(node, newNode) {
+    if (!node.left) {
+      node.left = newNode;
+    } else if (!node.right) {
+      node.right = newNode;
+    } else {
+      // Recurse to find a suitable position
+      this.insertNode(node.left, newNode);
+    }
+  }
+  // Other methods for tree creation...
+
+  // Iterative DFS using a stack
+ iterativeDFS() {
+    if (!this.root) {
+      return [];
+    }
+
+    const stack = [];
+    let longestPath = [];
+    stack.push({ node: this.root, path: [] });
+
+    while (stack.length > 0) {
+      const { node, path } = stack.pop();
+      const currentPath = [...path, node.data];
+
+      if (!node.left && !node.right && currentPath.length > longestPath.length) {
+        longestPath = currentPath;
+      }
+
+      // Push right child first to explore left subtree first
+      if (node.right) {
+        stack.push({ node: node.right, path: currentPath });
+      }
+      if (node.left) {
+        stack.push({ node: node.left, path: currentPath });
+      }
+    }
+
+    return longestPath;
+  }
+
+
+   getTreeASCII(root = this.root, prefix = "", isLeft = true) {
+    if (!root) {
+      return "";
+    }
+
+    const connector = isLeft ? "├── " : "└── ";
+    const newPrefix = prefix + (isLeft ? "│   " : "    ");
+    
+    const leftBranch = this.getTreeASCII(root.left, newPrefix, true);
+    const rightBranch = this.getTreeASCII(root.right, newPrefix, false);
+
+    return (
+      prefix + connector + root.data + "\n" + leftBranch + rightBranch
+    );
+  }
+}
+
+// Example usage
+const tree = new BinaryTree();
+tree.insert(1)
+tree.insert(2)
+tree.insert(3)
+tree.insert(4)
+tree.insert(5)
+tree.insert(6)
+tree.insert(7)
+tree.insert(8)
+tree.insert(10)
+
+
+
+console.log(tree.getTreeASCII())
+
+console.log(tree)
+console.log(tree.iterativeDFS()); // Outputs the nodes in DFS order
+
+
+
+
 //split array by any requested size
 for (let i = str.length; i > 0; i -= groupSize) {
     let newStr = str.slice(0, i) 
