@@ -1,0 +1,14 @@
+function sym(...args) {
+
+  const result = args.reduce((arg1, arg2) => {
+     
+       const arg1Diff = new Set([...arg1].filter((x) => !arg2.includes(x)));
+      
+       const arg2Diff = new Set([...arg2].filter((x) => !arg1.includes(x)));
+
+    return [...arg1Diff, ...arg2Diff]
+  })
+  return result;
+}
+
+console.log(sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]));
