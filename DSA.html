@@ -21,6 +21,69 @@
   //https://www.codecademy.com/learn/learn-ruby
   //https://microverse.zendesk.com/hc/en-us/restricted?return_to=https%3A%2F%2Fmicroverse.zendesk.com%2Fhc%2Fen-us%2Farticles%2F360026625973-How-can-I-get-help-from-TSEs
 
+
+function flipSignificantBits(binary) {
+
+
+  const strippedBinaryNumber = binary.toString(2).replace(/^0+/, '');
+
+  console.log(strippedBinaryNumber);
+
+  // Flip the bits
+  let flipped = '';
+  for (let i = 0; i < strippedBinaryNumber.length; i++) {
+    flipped += (strippedBinaryNumber[i] === '0' ? '1' : '0')
+  }
+
+  console.log(flipped);
+
+  return parseInt(flipped, 2);
+}
+
+// Example usage
+const binary = 50;
+console.log(flipSignificantBits(binary)); // Output: "11110000"
+
+function manipulateStudentRecord(obj, operation, prop, newValue) {
+  if (operation === "edit") {
+
+    if (prop in obj) {
+
+      obj[prop] = newValue;
+
+    } else {
+
+      console.log(`Property "${prop}" does not exist in the object.`);
+
+    }
+  } else if (operation === "delete") {
+    if (prop in obj) {
+      delete obj[prop];
+    } else {
+      console.log(`Property "${prop}" does not exist in the object.`);
+    }
+  } else {
+    console.log(`Invalid operation "${operation}".`);
+  }
+  return obj
+}
+
+const obj = {
+  article: "car",
+  age: 25,
+  isAdult: true
+};
+
+let operation = "edit"
+let prop = "isAdult"
+let newValue = false
+
+
+
+
+
+
+  
 class TreeNode {
     constructor(value) {
         this.value = value;
